@@ -14,14 +14,13 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* margin:"2%"; */
+  /* padding:"2%" */
 }
 
 .App-link {
@@ -35,4 +34,58 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+table{
+  min-width: 450px;
+  max-width: 900px;
+  text-align: center;
+  border: 2px solid black;
+  border-collapse: collapse;
+  margin: 2%;
+  margin-left: auto;
+  margin-right: auto;
+}
+th{
+  border: 2px solid black;
+  border-collapse: collapse;
+  padding: 5%;
+}
+tr{
+  border: 1px solid rgb(0, 0, 0);
+  padding: 3px;
+}
+
+.user-cell{
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 5px;
+}
+
+.edit-btns{
+  margin-left: auto;
+  width: fit-content;
+  background-color: rgb(231, 227, 227);
+}
+
+.profile{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+}
+
+.profile-card{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.profile-details{
+  padding: 5px;
+  margin: 2%;
 }

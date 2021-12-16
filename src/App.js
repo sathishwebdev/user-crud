@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext, useContext, useState } from 'react'
+import { BrowserRouter as Router,  Route, Routes } from 'react-router-dom'
+import { CreateUser } from './CreateUser'
+import UserList from './userList'
+import userData from './user.json'
+import Profile from './profile'
+export let context = createContext(null)
+
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [value, setValue] = useState(userData)
+    
+    let values = {data: value, setData: setValue}
+    let {Provider} = context
+    return <Provider value={values}>
+            <Router>
+                <Routes>
+                    <Route exact path="/" element={<UserList />} />
+                    <Route exact path="/users" element={<UserList />} />
+                    <Route exact path="/create-user" element={<CreateUser />} />
+                    <Route exact path="/profile/:userId" element={<Profile />} />
+                </Routes>
+            </Router>
+        </Provider>
 }
 
-export default App;
+export const useData = () => useContext(context)
+
+export default App
