@@ -3,14 +3,13 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useData } from './App'
 import * as Icons from '@mui/icons-material'
 import * as mui from '@mui/material'
-import { stringAvatar } from './userList'
+import { Img, stringAvatar } from './userList'
 
 function Profile() {
     const {userId} = useParams()
     let {data, setData} = useData()
-    let user = data.filter(user=> user.id === userId)
-    console.log(user);
-    let {sx, children} = stringAvatar(user[0].name)
+    let [user] = data.filter(user=> user.id === userId)
+    let {sx, children} = stringAvatar(user.name)
     let navigate = useNavigate()
     const Delete = id => {
         setData(data.filter(user=> user.id !== id ))
@@ -19,6 +18,16 @@ function Profile() {
     
     return (
         <div className="profile">
+            <mui.Button
+                variant='contained'
+                color='inherit'
+                onClick={()=>{
+                    navigate('/')
+                }}
+                sx={{margin:"3%"}}
+            >
+                Back to Home
+            </mui.Button>
             {user.length === 0 ? 
             <h4>No Profile Found</h4> 
             : 
@@ -26,13 +35,68 @@ function Profile() {
                 <div
                 className="profile-card"
                 >
-                    <mui.Avatar   alt="profile" title={user.name} children={children} sx={{ ...sx, width: 200, height: 200, fontSize: 100 }} />
-                    <h1>{user[0].name}</h1>
+                     
+                        <div>
+                            <div 
+                                style={{
+                                    width: "fit-content",
+                                    height: "200px",
+                                    overflow: 'hidden',
+                                    position:"relative",
+                                    borderRadius: "50%"
+                                }}>
+                                 { !user.profile? 
+                                    <mui.Avatar
+                                        alt="profile" 
+                                        title={user.name} 
+                                        children={children} 
+                                        sx={{ ...sx, width: 200, height: 200, fontSize: 100 }} 
+                                    /> 
+                                    : 
+                                    <Img
+                                        name={user.name}
+                                        id={user.profile}
+                                        gender={user.gender}
+                                        sx={{
+                                            borderRadius: "50%",
+                                            border:"3px groove black",
+                                            width:'200px', 
+                                            height:"200px"
+                                        }}
+                                    /> 
+                                    }
+                                <div
+                                    style={{
+                                        position:"absolute",
+                                        backgroundColor:"rgba(0,0,0, 0.5)",
+                                        height:"30px",
+                                        display:"flex",
+                                        justifyContent:"center",
+                                        alignItems:"center",
+                                        width:"100%",
+                                        bottom:0,
+                                        color:"white"
+                                    }}
+                                >
+                                <mui.IconButton
+                                    color="inherit"
+                                    size="small"
+                                    onClick={()=>{navigate(`/edit-profile/${user.id}`)}}
+                                >
+                                    <Icons.Edit /> Edit
+                                </mui.IconButton>
+                            </div>
+                            </div>
+                            
+                        </div>
+                    
+                    
+                    <h1>{user.name}</h1>
                     <p>
                         <mui.Button
-                        variant="outlined"
-                        color="inherit"
-                        // sx={{color:"black"}}
+                            variant="outlined"
+                            color="inherit"
+                            onClick={()=>{navigate(`/edit-user/${user.id}`)}}
                         >
                           <Icons.Edit/>  Edit
                         </mui.Button> 
@@ -52,9 +116,9 @@ function Profile() {
                 </div> 
 
                 <div className="profile-details">
-                    <p>{user[0].username}</p>
-                    <p>{user[0].email}</p>
-                    <p>{user[0].description}</p>
+                    <p>{user.username}</p>
+                    <p>{user.email}</p>
+                    <p>{user.description}</p>
                 </div>
                 
             </div> }

@@ -1,71 +1,65 @@
-import React from 'react';
+import React from 'react'
 import * as mui from '@mui/material';
 import { Formik } from 'formik';
 import { useData } from './App';
-import { useNavigate } from 'react-router-dom';
-
-
-
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const Button = mui.styled(mui.Button)(({ theme }) => ({
-  color: theme.palette.getContrastText(mui.colors.purple[500]),
-  backgroundColor: "#000000",
-  margin: "3%",
-
-  '&:hover': {
-    backgroundColor: "#a5a5a5",
-    color: "black",
-    boxShadow: "0px 0px 15px 1px"
-  },
-}));
-export const TextField = mui.styled(mui.TextField)({
-  '& label.Mui-focused': {
-    color: "black"
-  },
-  '& .MuiInput-underline:after': {
-    borderBottomColor: 'black',
-  },
-  '& .MuiOutlinedInput-root': {
-    '&.Mui-focused fieldset': {
-      borderColor: 'black',
+    color: theme.palette.getContrastText(mui.colors.purple[500]),
+    backgroundColor: "#000000",
+    margin: "3%",
+  
+    '&:hover': {
+      backgroundColor: "#a5a5a5",
+      color: "black",
+      boxShadow: "0px 0px 15px 1px"
     },
-  },
-});
+  }));
+  export const TextField = mui.styled(mui.TextField)({
+    '& label.Mui-focused': {
+      color: "black"
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: 'black',
+    },
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: 'black',
+      },
+    },
+  });
 
+function EditUser() {
+   
+    let {editId} = useParams()
 
-
-
-
-
-export const CreateUser = () => {
-
-  let navigate = useNavigate()
+   let navigate = useNavigate()
   
   const getData = useData()
 
-  const {data, setData} = !getData? {data: null, setData: ()=> null} : getData
+  let {data, setData} = !getData? {data: null, setData: ()=> null} : getData
 
- 
+  let [user, ...rest] = data.filter(user=> user.id === editId)
+
+  data = data.filter(user=> user.id !== editId)
 
   return <div id="create-user">
     { !data? <h2>Loading...</h2> : <div>
       <h1>Create User</h1>
       <Formik
         initialValues={{
-          id: `010${data.length+1}`,
-          username: "",
-          name: "",
-          email: "",
-          description: "",
-          gender:'',
-          profile: null
+          id: user.id,
+          username: user.username,
+          name: user.name,
+          email: user.email,
+          description: user.description,
+          gender: user.gender
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setData([...data, values]);
           setSubmitting(false);
           resetForm();
-          console.log(data)
-          navigate('/')
+          navigate('/users')
         }}
       >
         {({ values, handleBlur, handleChange, handleSubmit }) => (
@@ -117,7 +111,6 @@ export const CreateUser = () => {
               InputProps={{ maxLength: 100 }}
               margin='normal' />
 
-            
         <mui.RadioGroup
             aria-label="gender"
             value={values.gender}
@@ -126,11 +119,14 @@ export const CreateUser = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             row
+            required
         >
             <mui.FormControlLabel value="female" control={<mui.Radio />} label="Female" />
             <mui.FormControlLabel value="male" control={<mui.Radio />} label="Male" />
+            <mui.FormControlLabel value="other" control={<mui.Radio />} label="Other" />
         </mui.RadioGroup>
 
+       
             <Button
               type="submit"
               onClick={handleSubmit}
@@ -143,3 +139,6 @@ export const CreateUser = () => {
   </div>;
 };
 
+
+
+export default EditUser

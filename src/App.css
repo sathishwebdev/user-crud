@@ -74,7 +74,7 @@ tr{
   display: flex;
   justify-content: center;
   align-items: center;
-  /* flex-direction: column; */
+  flex-direction: column;
   flex-wrap: wrap;
 }
 
@@ -88,4 +88,49 @@ tr{
 .profile-details{
   padding: 5px;
   margin: 2%;
+}
+.profile-collection-container{
+  border: 2px solid black;
+  min-height: 60vh;
+  margin: 2%;
+  padding:2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 600px;
+}
+
+.avatar{
+  border: 3px solid gray;
+}
+
+.selected{
+  border: 3px solid rgb(2, 175, 255);
+}
+
+.avatar:hover{
+  border: 1px groove rgb(38, 49, 54);
+  box-shadow: 0px 0px 15px 5px rgb(45, 52, 56)
+}
+
+
+.loader {
+  position: absolute;
+  border: 5px black dashed;
+  width: 200px;
+  height: 200px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 0.01s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

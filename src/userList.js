@@ -51,14 +51,16 @@ function UserList() {
                         padding:"2px",
                         textDecoration:"none"
                         }} >
-                        <mui.Avatar alt="profile" title={user.name} {...stringAvatar(user.name)} /> 
+                       { !user.profile?  <mui.Avatar alt="profile" title={user.name} {...stringAvatar(user.name)} /> :  <Img name={user.name} id={user.profile} gender={user.gender}  />  }
                         <p> {user.name}</p>
                         </Link>
                     </td>
                     <td
                       className="edit-btns"
                     > 
-                      <mui.IconButton>
+                      <mui.IconButton
+                        onClick={()=>{navigate(`/edit-user/${user.id}`)}}
+                      >
                         <Icons.Edit color="primary" />
                       </mui.IconButton>
                       <mui.IconButton
@@ -109,6 +111,8 @@ export function stringAvatar(name) {
       marginRight:"2%",
       // border:"2px solid black"
     },
-    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    children: `${name.split(' ')[0][0]}${name.split(' ')[1] ? name.split(' ')[1][0] : ''}`,
   };
 }
+
+export const Img = ({name, gender, id, sx, className}) => <img className={className || ''}  style={{ width:"50px", height:"50px", ...sx}} src={`/avatars/${gender}/${id}.jpg`} alt={name} title={name}  />

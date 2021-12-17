@@ -4,20 +4,35 @@
         "username":"SK_1",
         "name":"Sathish Kumar S",
         "email" : "sathisheee927@gmail.com",
-        "description":"description of user"
+        "description":"description of user",
+        "gender":"male",
+        "profile": null
     },
     {
         "id":"0102",
         "username":"SK_2",
         "name":"Kumar S",
         "email" : "sathishweb27@gmail.com",
-        "description":"description of user"
+        "description":"description of user",
+        "gender":"male",
+        "profile": null
     },
     {
         "id":"0103",
         "username":"SK_3",
         "name":"Bala Guru S",
         "email" : "sathishs27@gmail.com",
-        "description":"description of user"
+        "description":"description of user",
+        "gender": "male",
+        "profile": 2
+    },
+    {
+        "id":"0104",
+        "username":"SK_4",
+        "name":"Sathya",
+        "email" : "sathiya@gmail.com",
+        "description":"description of user",
+        "gender": "female",
+        "profile": null
     }
 ]
