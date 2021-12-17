@@ -9,6 +9,8 @@ import { Button } from './CreateUser';
 function UserList() {
   
   const getData = useData()
+
+  let navigate = useNavigate()
  
   const {data, setData} = !getData? {data: null} : getData
  
@@ -23,7 +25,7 @@ function UserList() {
           <Button
           sx={{margin:"2%"}}
           variant="contained"
-          href="#create-user"
+          onClick={()=>{navigate("/create-user")}}
           >
            <Icons.PersonAdd/> Create User
           </Button>

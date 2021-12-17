@@ -2,6 +2,7 @@ import React from 'react';
 import * as mui from '@mui/material';
 import { Formik } from 'formik';
 import { useData } from './App';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -38,10 +39,11 @@ export const TextField = mui.styled(mui.TextField)({
 
 export const CreateUser = () => {
 
+  let navigate = useNavigate()
   
   const getData = useData()
-console.log(getData)
-  const {data, setData} = getData? {data: null, setData: ()=> null} : getData
+
+  const {data, setData} = !getData? {data: null, setData: ()=> null} : getData
 
  
 
@@ -50,7 +52,7 @@ console.log(getData)
       <h1>Create User</h1>
       <Formik
         initialValues={{
-          id: `010${data.length}`,
+          id: `010${data.length+1}`,
           username: "",
           name: "",
           email: "",
@@ -60,6 +62,7 @@ console.log(getData)
           setData([...data, values]);
           setSubmitting(false);
           resetForm();
+          navigate('/')
         }}
       >
         {({ values, handleBlur, handleChange, handleSubmit }) => (
